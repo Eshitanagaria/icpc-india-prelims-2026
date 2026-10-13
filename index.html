@@ -180,7 +180,6 @@ a.pc:focus-visible{outline-offset:1px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px}
 .panel h2{font-family:var(--font-display);font-stretch:85%;font-weight:760;font-size:24px;line-height:1.1;margin:0}
 .panel p{margin:0;max-width:62ch}
-.soon{align-self:flex-start;background:var(--top-bg);color:var(--top);font-size:11px;font-weight:600;border-radius:4px;padding:1px 7px;text-transform:uppercase;letter-spacing:.06em}
 .ntr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.6fr) auto;gap:12px;align-items:start;padding:12px 14px;border-bottom:1px solid var(--line)}
 .ntr:last-child{border-bottom:0}
 .nact{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
@@ -189,11 +188,7 @@ a.pc:focus-visible{outline-offset:1px}
 .nbackup .row{margin-top:8px}
 @media (max-width:799px){ .ntr{grid-template-columns:minmax(0,1fr)} }
 
-/* regional view */
-.reg{display:flex;flex-direction:column;gap:12px}
-.rfilters{display:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;gap:16px 24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.reg.open .rfilters{display:grid}
-@media (min-width:700px){ .rfilters{display:grid} .reg > .fbtn{display:none} }
+/* regional view: same vertical filter sidebar as the ranklist (the .layout, .filters and .main rules above) */
 .rhd,.rtr{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr) 200px;gap:12px;align-items:center;padding:9px 14px}
 .rhd{background:var(--surface2);border-bottom:1px solid var(--line);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
 .rst{font-size:13px;color:var(--muted)}
@@ -324,29 +319,32 @@ a.pc:focus-visible{outline-offset:1px}
     </main>
   </div>
 
-  <div class="reg" id="reg" hidden>
+  <div class="layout" id="reg" hidden>
     <button class="fbtn" id="rfbtn" type="button" aria-expanded="false" aria-controls="rfilters">Filters <span class="n" id="rfcount" hidden>0</span></button>
-    <section class="rfilters" id="rfilters" aria-label="Regional filters">
-      <div class="f">
+    <aside class="filters" id="rfilters" aria-label="Regional filters">
+      <div class="f span2">
         <label for="rq">Search</label>
         <input id="rq" type="search" placeholder="Team or college (try IIT Delhi)" autocomplete="off">
-        <span class="lab" style="margin-top:6px">In prelims ranklist</span>
+      </div>
+      <div class="f span2">
+        <span class="lab">In prelims ranklist</span>
         <div class="row" id="rpresChips"></div>
         <button class="chip" id="ralso" type="button" aria-pressed="false" style="width:max-content"></button>
       </div>
-      <div class="f">
+      <div class="f span2">
         <span class="lab">Institute type</span>
         <div class="row" id="rtypeChips"></div>
-        <button class="reset" id="rreset" type="button" style="width:max-content;margin-top:6px">Reset all filters</button>
       </div>
-      <div class="f">
+      <div class="f span2">
         <label for="rinstq">College</label>
         <div class="sel" id="rinstSel"></div>
         <input id="rinstq" type="search" placeholder="Find a college" autocomplete="off">
         <div class="instbox" id="rinstList" role="group" aria-label="Colleges"></div>
       </div>
-    </section>
+      <button class="reset span2" id="rreset" type="button">Reset all filters</button>
+    </aside>
 
+    <main class="main">
     <div class="bar">
       <div class="l count" id="rcount" aria-live="polite"></div>
       <div class="r">
@@ -372,7 +370,8 @@ a.pc:focus-visible{outline-offset:1px}
       <div class="r"><button id="rprev" type="button">Previous</button><span class="mid" id="rpg"></span><button id="rnext" type="button">Next</button></div>
     </div>
 
-    <p class="note">Every team registered for this regional, from its registration list. A team is shown with its prelims rank when its name and college match a team on the ranklist. Teams without a match are not on the ranklist, which only lists teams that solved at least one problem. A college spelled differently in the two lists can be missed.</p>
+    <p class="note">Every team registered for this regional, from its registration list. A team is shown with its prelims rank when its name and college match a team on the ranklist. Teams without a match are not on the ranklist, which only lists teams that solved at least one problem. The institute topper tag and the college rank come from that ranklist: the topper is the best-ranked team from its college, and the college rank counts every ranklist team from the same college, not only the ones registered here. Teams not on the ranklist have neither. A college spelled differently in the two lists can be missed.</p>
+    </main>
   </div>
 
   <section class="panel" id="notes" hidden aria-label="My notes">
@@ -392,13 +391,6 @@ a.pc:focus-visible{outline-offset:1px}
       <div class="row"><button class="btn" id="ncopy" type="button">Copy backup</button><button class="btn" id="nrestore" type="button">Restore from box</button></div>
       <p class="hint" id="nmsg" aria-live="polite" style="margin-top:8px"></p>
     </details>
-  </section>
-
-  <section class="panel" id="hall" hidden aria-label="Hall of Shame">
-    <span class="soon">Upcoming feature</span>
-    <h2>Hall of Shame</h2>
-    <p>This page is a placeholder. Nothing is listed here yet.</p>
-    <p class="hint">Until it is ready, use My notes to keep private notes on any team.</p>
   </section>
 </div>
 
@@ -517,8 +509,8 @@ regOpts.push({v:'none',l:'In neither',n:R.filter(function(r){return r.rg===0;}).
 $('regChips').innerHTML=regOpts.map(function(o){return '<button type="button" class="chip'+(o.k!==undefined?' k'+o.k:'')+'" data-reg="'+o.v+'" aria-pressed="false">'+(o.k!==undefined?'<i class="dot"></i>':'')+esc(o.l)+' <small>'+fmt(o.n)+'</small></button>';}).join('');
 
 /* tabs */
-var tabDefs=[{k:'ranklist',label:'Prelims ranklist',n:R.length}].concat(RT.map(function(g,j){return {k:g.key,c:j,label:g.name,n:g.teams.length};})).concat([{k:'notes',label:'My notes',n:nCount(),id:'nTabCount'},{k:'hall',label:'Hall of Shame',soon:true}]);
-$('tabs').innerHTML=tabDefs.map(function(t){return '<button type="button" class="tab'+(t.c!==undefined?' k'+t.c:'')+'" role="tab" data-tab="'+t.k+'" aria-selected="false">'+(t.c!==undefined?'<i class="dot"></i>':'')+esc(t.label)+' <small'+(t.id?' id="'+t.id+'"':'')+'>'+(t.soon?'soon':fmt(t.n))+'</small></button>';}).join('');
+var tabDefs=[{k:'ranklist',label:'Prelims ranklist',n:R.length}].concat(RT.map(function(g,j){return {k:g.key,c:j,label:g.name,n:g.teams.length};})).concat([{k:'notes',label:'My notes',n:nCount(),id:'nTabCount'}]);
+$('tabs').innerHTML=tabDefs.map(function(t){return '<button type="button" class="tab'+(t.c!==undefined?' k'+t.c:'')+'" role="tab" data-tab="'+t.k+'" aria-selected="false">'+(t.c!==undefined?'<i class="dot"></i>':'')+esc(t.label)+' <small'+(t.id?' id="'+t.id+'"':'')+'>'+fmt(t.n)+'</small></button>';}).join('');
 
 function renderInstList(){
   var qt=words($('instq').value);
@@ -699,7 +691,11 @@ function rRowHtml(t,k){
   var pr = t.pr
     ? '<button type="button" class="lnk" data-user="'+esc(t.pr.user)+'" title="Show this team on the ranklist">Rank '+t.pr.rank+'</button><span class="sv">'+t.pr.solved+' solved</span>'
     : 'Not in prelims ranklist';
-  return '<div class="rtr"><div class="team"><span class="n">'+tn(t.name)+'</span>'+an+'</div><div class="inst">'+ty+esc(t.inst)+'</div><div class="rst">'+pr+'</div></div>';
+  /* institute topper and college rank are the team's values on the prelims ranklist, so only teams found there get one */
+  var tp = !t.pr ? '' : (t.pr.top
+    ? '<span class="topper" title="Best-ranked team from this college on the prelims ranklist">Institute topper</span>'
+    : '<span class="ir" title="Rank among the prelims ranklist teams from this college">#'+t.pr.ir+' in college</span>');
+  return '<div class="rtr"><div class="team"><span class="n">'+tn(t.name)+'</span>'+tp+an+'</div><div class="inst">'+ty+esc(t.inst)+'</div><div class="rst">'+pr+'</div></div>';
 }
 function renderRInstList(g){
   var qt=words($('rinstq').value), out=[];
@@ -748,13 +744,12 @@ function loadReg(k){
 /* ---------- tabs ---------- */
 function show(view){
   var ri=-1; for(var j=0;j<RT.length;j++){ if(RT[j].key===view) ri=j; }
-  var special=(view==='notes'||view==='hall');
+  var special=(view==='notes');
   if(ri<0 && !special) view='ranklist';
   VIEW=view;
   $('layout').hidden = view!=='ranklist';
   $('reg').hidden = ri<0;
   $('notes').hidden = view!=='notes';
-  $('hall').hidden = view!=='hall';
   $('kpis').hidden = special;
   Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.setAttribute('aria-selected',b.dataset.tab===view?'true':'false');});
   if(ri>=0) loadReg(ri); else if(view==='ranklist') update(false); else if(view==='notes'){ renderNotes(); fillBackup(); }

@@ -1,6 +1,6 @@
 # ICPC India Prelims 2026 Ranklist
 
-A filterable dashboard for the tentative ICPC India Prelims 2026 ranklist (4,168 teams, 412 colleges), with registration lists for the Mathura and Chennai regionals.
+A filterable dashboard for the tentative ICPC India Prelims 2026 ranklist (4,055 teams, 375 colleges), with registration lists for the Mathura and Chennai regionals.
 
 **Live site:** https://eshitanagaria.github.io/icpc-india-prelims-2026/
 
@@ -27,7 +27,7 @@ Notes are saved in the visitor's own browser (local storage) and are keyed by th
 - Submission links follow the pattern `https://www.codechef.com/ICPCOL2026/status/<problem code>?usernames=<team username>`, taken from the submission-linked ranklist. They go to CodeChef, so what a visitor sees there depends on CodeChef.
 - Tied teams share a rank. College rank is the number of better-ranked teams from the same college, plus one.
 - On the regional tabs, the institute topper tag and college rank are the team's values on the prelims ranklist. The college rank counts every ranklist team from that college, not only those registered for the regional. Teams that are not on the ranklist have neither.
-- Regional tags match on team name and college (ignoring capitals, spaces and punctuation). A few college names spelled differently in the two sources were matched by hand; others may be missed. Two teams with the same name at one college are both tagged.
+- Regional tags match on team name and college (ignoring capitals, spaces and punctuation). A few college names spelled differently in the two sources were matched by hand (for example KIIT University and Kalinga Institute of Industrial Technology); others may be missed. Two teams with the same name at one college are both tagged.
 - The ranklist only lists teams that solved at least one problem, so some registered teams are not on it.
-- College names that differed only in spelling or capitalisation were merged. Padmasri and Padmashri B V Raju, and the two JSS Academy of Technical Education spellings, were merged by hand as the same college. Institute type is read from the college name.
-ducation spellings, were merged by hand as the same college. Institute type is read from the college name.
+- College names that differed only in spelling or capitalisation were merged, and the organizers' own renames (for example the Amrita and KIIT names) are treated as the same college on the regional tabs. Institute type is read from the college name.
+- Teams that were on an earlier version of the ranklist but are not in the latest file are simply not shown. Registered teams that are not in the latest ranklist show "Not in prelims ranklist" on the regional tabs, and notes saved for them show "Not in the current ranklist".

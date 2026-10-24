@@ -1,6 +1,6 @@
 # ICPC India Prelims 2026 Ranklist
 
-A filterable dashboard for the tentative ICPC India Prelims 2026 ranklist (4,168 teams, 412 colleges), with registration lists for the Mathura and Chennai regionals.
+A filterable dashboard for the tentative ICPC India Prelims 2026 ranklist (4,055 teams, 375 colleges), with registration lists for the Mathura and Chennai regionals.
 
 **Live site:** https://eshitanagaria.github.io/icpc-india-prelims-2026/
 

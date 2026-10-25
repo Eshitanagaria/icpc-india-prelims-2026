@@ -6,12 +6,13 @@ A filterable dashboard for the tentative ICPC India Prelims 2026 ranklist (4,055
 
 ## Features
 
-- **Tabs:** Prelims ranklist, Mathura, Chennai and My notes. A tab can be linked directly, for example `/#mathura`.
+- **Tabs:** Prelims ranklist, Mathura, Chennai, Not in latest and My notes. A tab can be linked directly, for example `/#mathura`.
 - **Ranklist:** search by team, college or username; filter by problems solved, college, institute type (IIT, NIT, IIIT, Other), rank range, penalty, individual problems and region
 - **Submission links:** every filled square in a team's row opens that team's accepted submissions for that problem on CodeChef, in a new tab
 - **Region tags:** teams registered for Mathura and/or Chennai are tagged, and can be filtered
 - **Institute topper tag**, a college rank for every other team, and a "top N from each college" filter
 - **Regional tabs:** every registered team for that regional, with a vertical filter sidebar (search, "in or not in the prelims ranklist", "also in the other regional", institute type and college). Teams on the ranklist show their prelims rank, which links to the ranklist, plus the institute topper tag or their college rank.
+- **Not in latest:** 1,555 teams that appear in an earlier list but not in the latest ranklist. 114 of them were on the previous ranklist and show their previous rank, college and result. The other 1,441 come only from a list of all teams dated 4 Oct 2026, which has a username and problems solved but no team name, college or rank. The files give no reason, so the tab makes no claim about why.
 - **My notes:** press "+ Note" next to any team to add a private note. The My notes tab lists them all, with search, edit, delete, and a copy and restore backup. There is also a "Teams with my notes" filter.
 - Sort options, light and dark mode, works on phones
 
@@ -31,3 +32,4 @@ Notes are saved in the visitor's own browser (local storage) and are keyed by th
 - The ranklist only lists teams that solved at least one problem, so some registered teams are not on it.
 - College names that differed only in spelling or capitalisation were merged, and the organizers' own renames (for example the Amrita and KIIT names) are treated as the same college on the regional tabs. Institute type is read from the college name.
 - Teams that were on an earlier version of the ranklist but are not in the latest file are simply not shown. Registered teams that are not in the latest ranklist show "Not in prelims ranklist" on the regional tabs, and notes saved for them show "Not in the current ranklist".
+
